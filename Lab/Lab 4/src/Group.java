@@ -8,6 +8,14 @@ public class Group {
         this.groupName = groupName;
         this.students = new ArrayList<>();
     }
+    public Group(String groupName, ArrayList<Student> students) {
+        this.groupName = groupName;
+        this.students = students;
+    }
+    public Group(ArrayList<Student> students) {
+        this.students = students;
+        groupName = students.getFirst().getGroup();
+    }
 
     public void addStudent(Student student) {
         if (!student.getGroup().equals(groupName)) {
