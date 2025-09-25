@@ -1,76 +1,78 @@
 import java.util.*;
 
 public class GradeBook {
-    private Person person;
-    private List<Session> sessions;
+    private int session;
+    private ArrayList<Grade> grades;
 
-    public GradeBook(Person person) {
-        this.person = person;
-        this.sessions = new ArrayList<>();
+    public GradeBook(int session) {
+        this.session = session;
+        this.grades = new ArrayList<>();
     }
 
-    public class Session {
-        private int sessionNumber;
-        private ArrayList<Exam> exams = new ArrayList<>();
-        private ArrayList<Credit> credits = new ArrayList<>();
+    public int getSession() {
+        return session;
+    }
 
-        public Session(int sessionNumber) {
-            this.sessionNumber = sessionNumber;
+    public ArrayList<Grade> getGrades() {
+        return grades;
+    }
+
+    public class Grade {
+        private String subject;
+        private int score;
+
+        public Grade(String subject, int score) {
+            this.subject = subject;
+            this.score = score;
         }
 
-        public void addExam(String subject, int grade) { exams.add(new Exam(subject, grade)); }
-        public void addCredit(String subject, boolean passed) { credits.add(new Credit(subject, passed)); }
-
-        public int getSessionNumber() { return sessionNumber; }
-        public ArrayList<Exam> getExams() { return exams; }
-        public ArrayList<Credit> getCredits() { return credits; }
-
-        public class Exam {
-            private String subject;
-            private int grade;
-
-            public Exam(String subject, int grade) {
-                this.subject = subject;
-                this.grade = grade;
-            }
-
-            public String getSubject() { return subject; }
-            public int getGrade() { return grade; }
-        }
-
-        public class Credit {
-            private String subject;
-            private boolean passed;
-
-            public Credit(String subject, boolean passed) {
-                this.subject = subject;
-                this.passed = passed;
-            }
-
-            public String getSubject() { return subject; }
-            public boolean isPassed() { return passed; }
+        public String getSubject() { return subject; }
+        public int getScore() { return score; }
+        @Override
+        public String toString() {
+            return subject + ": " + score;
         }
     }
 
-    public void addSession(Session session) { sessions.add(session); }
+    public void addGrade(String subject, int score) {
+        grades.add(new Grade(subject, score));
+    }
 
-    public List<Session> getSessions() { return sessions; }
+    public Integer getGrade(String subject) {
+        for(Grade g : grades) {
+            if(g.subject.equals(subject)) {
+                return g.getScore();
+            }
+        }
+        return -1;
+    }
+
+    public double getAverageGrade() {
+        if (grades.isEmpty()) return 0;
+        int sum = 0;
+        for (Grade grade : grades) {
+            sum += grade.getScore();
+        }
+        return sum / (double) grades.size();
+    }
 
     public boolean isExcellent() {
-        for (Session session : sessions) {
-            for (Session.Exam exam : session.getExams()) {
-                if (exam.getGrade() < 9) return false;
-            }
-            for (Session.Credit credit : session.getCredits()) {
-                if (!credit.isPassed()) return false;
-            }
+        if (grades.isEmpty()) return false;
+        for (Grade grade : grades) {
+            if (grade.getScore() < 9) return false;
         }
         return true;
     }
 
     @Override
     public String toString() {
-        return this.person.toString() +
-                "\n";
+        StringBuilder sb = new StringBuilder();
+        sb.append("Сессия: ").append(session).append("\n");
+        sb.append("Grades:\n");
+        for (Grade grade : grades) {
+            sb.append(grade.toString()).append("\n");
+        }
+        sb.append("\n");
+        return sb.toString();
     }
 }
