@@ -29,6 +29,13 @@ public class Group {
         return students;
     }
 
+    public double getAverageGrade(){
+        double sum = 0;
+        for(Student student : students){
+            sum += student.getAverageGrade();
+        }
+        return sum / students.size();
+    }
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
