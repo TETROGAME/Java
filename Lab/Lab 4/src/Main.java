@@ -1,4 +1,3 @@
-import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -152,8 +151,8 @@ public class Main {
     }
 
     public static void main(String[] args) {
-//        WriteFile(initGroup("Группа 5").getStudents(), "input.txt");
-        Group group = new Group("Группа 5", ReadFile("input.txt"));
+        WriteFile(initGroup("Группа 5").getStudents(), "input.txt");
+        System.out.print(ReadFile("input.txt"));
 
     }
 
