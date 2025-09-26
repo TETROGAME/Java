@@ -72,7 +72,7 @@ public class FileHandler {
     public static void WriteFile(ArrayList<Student> list, String path) {
         if(list.isEmpty()){
             System.out.println("Provided ArrayList is empty");
-            System.exit(1);
+            return;
         }
         try(FileWriter fileWriter = new FileWriter(path)){
             for(var stud : list){
