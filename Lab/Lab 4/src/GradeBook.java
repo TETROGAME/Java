@@ -63,6 +63,13 @@ public class GradeBook {
         }
         return true;
     }
+    public boolean hasExactMark(int mark){
+        if (grades.isEmpty()) return false;
+        for (Grade grade : grades) {
+            if (grade.getScore() == mark) return true;
+        }
+        return false;
+    }
 
     @Override
     public String toString() {
