@@ -30,6 +30,9 @@ public class Group {
         return students;
     }
 
+    public String getGroupName() {
+        return groupName;
+    }
     public double getAverageGrade(){
         double sum = 0;
         for(Student student : students){
