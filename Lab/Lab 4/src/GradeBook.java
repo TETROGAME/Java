@@ -56,6 +56,7 @@ public class GradeBook {
         return sum / (double) grades.size();
     }
 
+
     public boolean isExcellent() {
         if (grades.isEmpty()) return false;
         for (Grade grade : grades) {

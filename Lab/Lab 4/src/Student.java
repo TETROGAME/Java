@@ -22,13 +22,7 @@ public class Student {
     public String getGroup() { return group; }
     public GradeBook getGradeBook() { return gradeBook; }
 
-    public double getAverageGrade(){
-        double sum = 0;
-        for(var grade : getGradeBook().getGrades()){
-            sum += grade.getScore();
-        }
-        return sum / getGradeBook().getGrades().size();
-    }
+
     @Override
     public String toString() {
         return surname + " " + name + " " + patronymic +
