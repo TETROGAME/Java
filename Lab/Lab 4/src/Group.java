@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Group {
@@ -32,9 +33,27 @@ public class Group {
     public double getAverageGrade(){
         double sum = 0;
         for(Student student : students){
-            sum += student.getAverageGrade();
+            sum += student.getGradeBook().getAverageGrade();
         }
         return sum / students.size();
+    }
+    public ArrayList<Student> getListOfGrade(int grade){
+        ArrayList<Student> result = new ArrayList<>();
+        for(Student student : students){
+            if(student.getGradeBook().getAverageGrade() == grade){
+                result.add(student);
+            }
+        }
+        return result;
+    }
+    public ArrayList<Student> getListOfExcellent(){
+        ArrayList<Student> result = new ArrayList<>();
+        for(Student student : students){
+            if(student.getGradeBook().isExcellent()){
+                result.add(student);
+            }
+        }
+        return result;
     }
     @Override
     public String toString() {
