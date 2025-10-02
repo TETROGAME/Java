@@ -2,6 +2,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+//
+// Вариант 8
+//
 public class Main {
     public static void testMinMax() {
         System.out.println("Testing getMax and getMin...");
