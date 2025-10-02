@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Sequence {
@@ -20,7 +21,8 @@ public class Sequence {
     public ArrayList<Integer> getSequence() {
         return sequence;
     }
-    public String getType(){
+    public ArrayList<String> getTypes(){
+        if (sequence.size() == 0 || sequence.size() == 1) return new ArrayList<>(List.of("None"));
         boolean isIncreasing = true, isDecreasing = true, isNonIncreasing = true, isNonDecreasing = true, isArithmetical = true, isGeometric = true;
         int commonDifference = sequence.get(1) - sequence.get(0);
         double commonRatio = (double)sequence.get(1) / sequence.get(0);
@@ -35,13 +37,15 @@ public class Sequence {
             if (curr - prev != commonDifference) isArithmetical = false;
             if (prev == 0 || (double)curr / prev != commonRatio) isGeometric = false;
         }
-        if(isIncreasing){ return "Increasing"; }
-        if(isDecreasing){ return "Decreasing"; }
-        if(isNonIncreasing){ return "Non-Increasing"; }
-        if(isNonDecreasing){ return "Non-Decreasing"; }
-        if(isArithmetical){ return "Arithmetical"; }
-        if(isGeometric){ return "Geometric"; }
-        return "None";
+        ArrayList<String> types = new ArrayList<>();
+        if(isIncreasing){ types.add("Increasing"); }
+        if(isDecreasing){ types.add("Decreasing"); }
+        if(isNonIncreasing){ types.add("Non-Increasing"); }
+        if(isNonDecreasing){ types.add("Non-Decreasing"); }
+        if(isArithmetical){ types.add("Arithmetical"); }
+        if(isGeometric){ types.add("Geometric"); }
+        if(types.isEmpty()) { types.add("None"); }
+        return types;
     }
     public int getMax(){
         int max = Integer.MIN_VALUE;
