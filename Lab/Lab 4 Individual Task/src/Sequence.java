@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Sequence {
     private ArrayList<Integer> sequence;
@@ -15,6 +16,9 @@ public class Sequence {
             if(sequence.get(i) == element) return i;
         }
         return -1;
+    }
+    public ArrayList<Integer> getSequence() {
+        return sequence;
     }
     public String getType(){
         boolean isIncreasing = true, isDecreasing = true, isNonIncreasing = true, isNonDecreasing = true, isArithmetical = true, isGeometric = true;
@@ -79,7 +83,7 @@ public class Sequence {
     public boolean equals(Sequence other){
         if(this.sequence.size() != other.sequence.size()) return false;
         for(int i = 0; i < sequence.size(); i++){
-            if(sequence.get(i) != other.sequence.get(i)) return false;
+            if(!Objects.equals(sequence.get(i), other.sequence.get(i))) return false;
         }
         return true;
     }
