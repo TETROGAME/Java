@@ -1,7 +1,7 @@
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-
+import java.util.regex.*;
 public class Rational implements
         Comparable<Rational>,
         Comparator<Rational>,
@@ -16,6 +16,16 @@ public class Rational implements
     Rational(int numerator, int denominator) {
         this.numerator = numerator;
         this.denominator = denominator;
+    }
+    public Rational getFractionFromString(String fraction) {
+        Pattern pattern = Pattern.compile("(\\d+)/(\\d+)");
+        Matcher matcher = pattern.matcher(fraction);
+        if (matcher.find()) {
+            return new Rational(Integer.parseInt(matcher.group(1)),
+                                Integer.parseInt(matcher.group(2)));
+        }
+        System.out.println("Failed to parse string into fraction, returning generic Rational object instead");
+        return new Rational();
     }
 
     public Rational add(Rational r) {
@@ -75,5 +85,10 @@ public class Rational implements
                 }
             }
         };
+    }
+
+    @Override
+    public String toString() {
+        return this.numerator + "/" + this.denominator;
     }
 }
