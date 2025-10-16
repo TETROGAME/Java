@@ -76,6 +76,4 @@ public class Rational implements
             }
         };
     }
-
-
 }
