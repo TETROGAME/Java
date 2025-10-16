@@ -4,8 +4,8 @@ import java.util.NoSuchElementException;
 
 public class Rational implements
         Comparable<Rational>,
-        Iterable<Integer>,
-        Comparator<Rational> {
+        Comparator<Rational>,
+        Iterable<Integer> {
     private int numerator;
     private int denominator;
 
@@ -41,7 +41,15 @@ public class Rational implements
 
     @Override
     public int compareTo(Rational o) {
-        return 0;
+        int left = this.numerator * o.denominator;
+        int right = o.numerator * this.denominator;
+        return Integer.compare(left, right);
+    }
+    @Override
+    public int compare(Rational o1, Rational o2) {
+        int left = o1.numerator * o2.denominator;
+        int right = o2.numerator * o1.denominator;
+        return Integer.compare(left, right);
     }
 
     @Override
@@ -69,8 +77,5 @@ public class Rational implements
         };
     }
 
-    @Override
-    public int compare(Rational o1, Rational o2) {
-        return 0;
-    }
+
 }
