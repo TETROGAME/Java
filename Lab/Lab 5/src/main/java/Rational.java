@@ -32,7 +32,18 @@ public class Rational implements
             this.numerator = 0;
             this.denominator = 1;
         }
-
+    }
+    static Rational parse(String line){
+        Pattern pattern = Pattern.compile("(\\d+)/(\\d+)");
+        Matcher matcher = pattern.matcher(line);
+        if (matcher.find()) {
+            return new Rational(Integer.parseInt(matcher.group(1)),
+                                Integer.parseInt(matcher.group(2)));
+        }
+        else {
+            System.err.println("Failed to parse string into fraction, returning null instead");
+            return null;
+        }
     }
 
     public Rational add(Rational r) {
