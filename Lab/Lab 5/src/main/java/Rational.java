@@ -14,18 +14,25 @@ public class Rational implements
         this.denominator = 1;
     }
     Rational(int numerator, int denominator) {
+        if (denominator == 0) {
+            throw new IllegalArgumentException("Denominator cannot be zero");
+        }
         this.numerator = numerator;
         this.denominator = denominator;
     }
-    static public Rational getFractionFromString(String fraction) {
+    Rational(String line){
         Pattern pattern = Pattern.compile("(\\d+)/(\\d+)");
-        Matcher matcher = pattern.matcher(fraction);
+        Matcher matcher = pattern.matcher(line);
         if (matcher.find()) {
-            return new Rational(Integer.parseInt(matcher.group(1)),
-                                Integer.parseInt(matcher.group(2)));
+            this.numerator = Integer.parseInt(matcher.group(1));
+            this.denominator = Integer.parseInt(matcher.group(2));
         }
-        System.out.println("Failed to parse string into fraction, returning generic Rational object instead");
-        return new Rational();
+        else {
+            System.err.println("Failed to parse string into fraction, returning generic Rational object instead");
+            this.numerator = 0;
+            this.denominator = 1;
+        }
+
     }
 
     public Rational add(Rational r) {
