@@ -2,6 +2,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.regex.*;
+
 public class Rational implements
         Comparable<Rational>,
         Comparator<Rational>,
@@ -47,25 +48,25 @@ public class Rational implements
     }
 
     public Rational add(Rational r) {
-        int newDenominator = MathUtils.lcm(this.numerator, r.numerator);
-        int newNumerator = this.numerator * (newDenominator / this.denominator)+
-                            r.numerator * (newDenominator / r.denominator);
+        int newDenominator = MathUtils.lcm(this.denominator, r.denominator);
+        int newNumerator = this.numerator * (newDenominator / this.denominator)
+                + r.numerator * (newDenominator / r.denominator);
         return new Rational(newNumerator, newDenominator);
     }
     public Rational subtract(Rational r) {
-        int newDenominator = MathUtils.lcm(this.numerator, r.numerator);
-        int newNumerator = this.numerator * (newDenominator / this.denominator)-
-                r.numerator * (newDenominator / r.denominator);
+        int newDenominator = MathUtils.lcm(this.denominator, r.denominator);
+        int newNumerator = this.numerator * (newDenominator / this.denominator)
+                - r.numerator * (newDenominator / r.denominator);
         return new Rational(newNumerator, newDenominator);
     }
     public Rational multiply(Rational r) {
-        return new Rational(this.numerator * r.numerator, this.denominator * r.numerator);
+        return new Rational(this.numerator * r.numerator,
+                this.denominator * r.denominator);
     }
     public Rational divide(Rational r) {
-        Rational inverse = new Rational(r.denominator, r.numerator);
-        return this.multiply(inverse);
+        return new Rational(this.numerator * r.denominator,
+                this.denominator * r.numerator);
     }
-
 
     @Override
     public int compareTo(Rational o) {
