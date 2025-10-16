@@ -17,7 +17,7 @@ public class Rational implements
         this.numerator = numerator;
         this.denominator = denominator;
     }
-    public Rational getFractionFromString(String fraction) {
+    static public Rational getFractionFromString(String fraction) {
         Pattern pattern = Pattern.compile("(\\d+)/(\\d+)");
         Matcher matcher = pattern.matcher(fraction);
         if (matcher.find()) {
