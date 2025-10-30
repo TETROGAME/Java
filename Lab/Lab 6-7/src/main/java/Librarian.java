@@ -1,6 +1,11 @@
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Librarian {
+public class Librarian implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private final String name;
 
     public Librarian(String name) {
@@ -8,11 +13,7 @@ public class Librarian {
     }
 
     public Record issueBook(Catalogue catalogue, Book book, Reader reader, boolean readingRoom) {
-        try{
-            catalogue.extractBook(book);
-        } catch(RuntimeException e){
-            System.err.println(e.getMessage());
-        }
+        catalogue.extractBook(book);
 
         LocalDate issueDate = LocalDate.now();
         LocalDate dueDate = readingRoom ? issueDate : issueDate.plusDays(14);
