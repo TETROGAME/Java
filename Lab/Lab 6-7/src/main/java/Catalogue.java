@@ -1,7 +1,12 @@
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Optional;
 
-public class Catalogue {
+public class Catalogue implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private final HashMap<Book, Integer> books;
 
     public Catalogue(HashMap<Book, Integer> books) {
@@ -13,7 +18,6 @@ public class Catalogue {
                 .filter(b -> b.getTitle().equalsIgnoreCase(title))
                 .findFirst();
     }
-
 
     public Optional<Book> searchByAuthor(String author) {
         return books.keySet().stream()
