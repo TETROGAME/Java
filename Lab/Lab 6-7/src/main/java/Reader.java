@@ -21,7 +21,6 @@ public class Reader implements Serializable {
         this.phone_number = phone_number;
     }
 
-    // getters
     public String getName() { return name; }
     public String getSurname() { return surname; }
     public String getPatronymic() { return patronymic; }
@@ -39,13 +38,11 @@ public class Reader implements Serializable {
                 "Phone Number: " + phone_number + "\n";
     }
 
-    // equality to identify readers (used for blacklist etc.)
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Reader)) return false;
         Reader other = (Reader) o;
-        // use email as primary unique field if present, otherwise compare full name
         if (email != null && other.email != null) return email.equals(other.email);
         return name.equals(other.name) && surname.equals(other.surname) && patronymic.equals(other.patronymic);
     }
