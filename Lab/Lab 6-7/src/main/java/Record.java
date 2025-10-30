@@ -1,7 +1,12 @@
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.UUID;
 
-public class Record {
+public class Record implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private final UUID id;
     private final Book book;
     private final Reader reader;
