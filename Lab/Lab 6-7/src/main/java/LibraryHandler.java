@@ -1,9 +1,14 @@
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class LibraryHandler {
+public class LibraryHandler implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private final Catalogue catalogue;
     private final List<Record> records = new ArrayList<>();
     private final Administrator admin;
@@ -59,5 +64,25 @@ public class LibraryHandler {
 
     public void printCatalogue() {
         System.out.println(catalogue);
+    }
+
+    public List<Record> getAllRecords() {
+        return records;
+    }
+
+    public List<Record> getRecordsByReader(Reader reader) {
+        List<Record> res = new ArrayList<>();
+        for (Record r : records) {
+            if (r.getReader().equals(reader) && !r.isReturned()) res.add(r);
+        }
+        return res;
+    }
+
+    public Catalogue getCatalogue() {
+        return catalogue;
+    }
+
+    public Administrator getAdmin() {
+        return admin;
     }
 }
