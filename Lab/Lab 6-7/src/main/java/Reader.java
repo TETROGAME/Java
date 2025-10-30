@@ -43,13 +43,13 @@ public class Reader implements Serializable {
         if (this == o) return true;
         if (!(o instanceof Reader)) return false;
         Reader other = (Reader) o;
-        if (email != null && other.email != null) return email.equals(other.email);
+        if (email != null && other.email != null) return email.equalsIgnoreCase(other.email);
         return name.equals(other.name) && surname.equals(other.surname) && patronymic.equals(other.patronymic);
     }
 
     @Override
     public int hashCode() {
-        if (email != null) return email.hashCode();
+        if (email != null) return email.toLowerCase().hashCode();
         int result = name.hashCode();
         result = 31 * result + surname.hashCode();
         result = 31 * result + patronymic.hashCode();
