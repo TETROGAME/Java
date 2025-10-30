@@ -1,7 +1,12 @@
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Administrator {
+public class Administrator implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private final String name;
     private final Set<Reader> blacklist = new HashSet<>();
 
@@ -25,5 +30,9 @@ public class Administrator {
             return;
         }
         blacklist.forEach(r -> System.out.println("- " + r.getSurname() + " " + r.getName()));
+    }
+
+    public Set<Reader> getBlacklist() {
+        return blacklist;
     }
 }
