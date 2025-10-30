@@ -1,4 +1,10 @@
-public class Reader {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class Reader implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private final String name;
     private final String surname;
     private final String patronymic;
@@ -15,6 +21,7 @@ public class Reader {
         this.phone_number = phone_number;
     }
 
+    // getters
     public String getName() { return name; }
     public String getSurname() { return surname; }
     public String getPatronymic() { return patronymic; }
@@ -32,10 +39,13 @@ public class Reader {
                 "Phone Number: " + phone_number + "\n";
     }
 
+    // equality to identify readers (used for blacklist etc.)
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Reader other)) return false;
+        if (!(o instanceof Reader)) return false;
+        Reader other = (Reader) o;
+        // use email as primary unique field if present, otherwise compare full name
         if (email != null && other.email != null) return email.equals(other.email);
         return name.equals(other.name) && surname.equals(other.surname) && patronymic.equals(other.patronymic);
     }
