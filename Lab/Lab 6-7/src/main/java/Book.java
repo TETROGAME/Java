@@ -1,4 +1,10 @@
-public class Book {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class Book implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private final String title;
     private final String author;
 
@@ -13,7 +19,8 @@ public class Book {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Book other)) return false;
+        if (!(o instanceof Book)) return false;
+        Book other = (Book) o;
         return title.equals(other.title) && author.equals(other.author);
     }
 
