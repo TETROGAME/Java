@@ -5,7 +5,8 @@ public class Reader {
     private final String address;
     private final String email;
     private final String phone_number;
-    Reader(String name, String surname, String patronymic, String address, String email, String phone_number) {
+
+    public Reader(String name, String surname, String patronymic, String address, String email, String phone_number) {
         this.name = name;
         this.surname = surname;
         this.patronymic = patronymic;
@@ -14,6 +15,12 @@ public class Reader {
         this.phone_number = phone_number;
     }
 
+    public String getName() { return name; }
+    public String getSurname() { return surname; }
+    public String getPatronymic() { return patronymic; }
+    public String getAddress() { return address; }
+    public String getEmail() { return email; }
+    public String getPhoneNumber() { return phone_number; }
 
     @Override
     public String toString() {
@@ -23,5 +30,22 @@ public class Reader {
                 "Address: " + address + "\n" +
                 "Email: " + email + "\n" +
                 "Phone Number: " + phone_number + "\n";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Reader other)) return false;
+        if (email != null && other.email != null) return email.equals(other.email);
+        return name.equals(other.name) && surname.equals(other.surname) && patronymic.equals(other.patronymic);
+    }
+
+    @Override
+    public int hashCode() {
+        if (email != null) return email.hashCode();
+        int result = name.hashCode();
+        result = 31 * result + surname.hashCode();
+        result = 31 * result + patronymic.hashCode();
+        return result;
     }
 }
