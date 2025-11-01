@@ -19,8 +19,7 @@ public class Book implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Book)) return false;
-        Book other = (Book) o;
+        if (!(o instanceof Book other)) return false;
         return title.equals(other.title) && author.equals(other.author);
     }
 
