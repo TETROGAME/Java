@@ -1,3 +1,4 @@
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -5,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class LibraryHandler implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private final Catalogue catalogue;
