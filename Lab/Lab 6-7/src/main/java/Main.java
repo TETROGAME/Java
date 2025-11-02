@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    private static final String SAVEFILE = "LibrarySavefile.bin";
-
     public static Reader gatherInformation(Scanner scanner) {
         String name;
         String surname;
@@ -65,7 +63,8 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        LibraryHandler handler = loadState();
+        StateConnector connector = new StateConnector();
+        LibraryHandler handler = connector.loadState();
 
         if (handler == null) {
             Book b1 = new Book("Dubel", "Igor Kolba");
@@ -84,8 +83,6 @@ public class Main {
             Administrator admin = new Administrator("Ivan");
             handler = new LibraryHandler(catalogue, librarian, admin);
             System.out.println("Initialized new library state.");
-        } else {
-            System.out.println("Loaded saved library state.");
         }
 
         try (Scanner scanner = new Scanner(System.in)) {
@@ -95,7 +92,9 @@ public class Main {
                 Reader last = handler.findReaderByEmail(lastEmail);
                 if (last != null) {
                     current = last;
-                    System.out.println("Automatically logged in as previously used reader: " + current.getName() + " " + current.getSurname());
+                    current.incrementLoginCount();
+                    System.out.println("Automatically logged in as: " + current.getName() + " " + current.getSurname());
+                    System.out.println("Login count for this session: " + current.getSessionLoginCount());
                 }
             }
 
@@ -113,6 +112,7 @@ public class Main {
                         Reader found = handler.findReaderByEmail(email);
                         if (found != null) {
                             current = found;
+                            current.incrementLoginCount();
                             handler.setLastLoggedInEmail(email);
                             System.out.println("Logged in as: " + current.getName() + " " + current.getSurname());
                         } else {
@@ -217,6 +217,7 @@ public class Main {
                                 Reader found = handler.findReaderByEmail(email);
                                 if (found != null) {
                                     current = found;
+                                    current.incrementLoginCount();
                                     handler.setLastLoggedInEmail(email);
                                     System.out.println("Switched to: " + current.getName() + " " + current.getSurname());
                                 } else {
@@ -230,12 +231,11 @@ public class Main {
                             System.out.println("Unknown option.");
                     }
                 } catch (Exception ex) {
-                    System.out.println("Error: " + ex.getMessage());
+                    System.err.println("An error occurred: " + ex.getMessage());
                 }
             }
         }
-        saveState(handler);
-        System.out.println("State saved to " + SAVEFILE + ". Goodbye!");
+        connector.saveState(handler);
     }
 
     private static Reader createAndRegisterReader(LibraryHandler handler, Scanner scanner) {
@@ -250,30 +250,5 @@ public class Main {
     private static Reader createTempReader(Scanner scanner) {
         System.out.println("Enter reader details for this session (not saved):");
         return gatherInformation(scanner);
-    }
-
-    private static LibraryHandler loadState() {
-        File f = new File(SAVEFILE);
-        if (!f.exists()) return null;
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f))) {
-            Object obj = ois.readObject();
-            if (obj instanceof LibraryHandler) {
-                return (LibraryHandler) obj;
-            } else {
-                System.out.println("Saved file does not contain a LibraryHandler.");
-                return null;
-            }
-        } catch (Exception e) {
-            System.out.println("Failed to load saved state: " + e.getMessage());
-            return null;
-        }
-    }
-
-    private static void saveState(LibraryHandler handler) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(SAVEFILE))) {
-            oos.writeObject(handler);
-        } catch (IOException e) {
-            System.out.println("Failed to save state: " + e.getMessage());
-        }
     }
 }
