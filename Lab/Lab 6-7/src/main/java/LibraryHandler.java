@@ -55,11 +55,11 @@ public class LibraryHandler implements Serializable {
 
     public Record placeOrderByTitle(Reader reader, String title, boolean readingRoom) {
         if (admin.isBlacklisted(reader)) {
-            throw new RuntimeException("Reader is blacklisted and cannot borrow books");
+            throw new RuntimeException(I18n.tr("errors.reader.blacklisted"));
         }
         Optional<Book> found = catalogue.searchByTitle(title);
         if (found.isEmpty()) {
-            throw new RuntimeException("Book with title '" + title + "' not found in catalogue");
+            throw new RuntimeException(I18n.tr("errors.book.not.found", title));
         }
         Book book = found.get();
         Record r = librarian.issueBook(catalogue, book, reader, readingRoom);
@@ -69,15 +69,15 @@ public class LibraryHandler implements Serializable {
 
     public void returnBook(Record record) {
         if (!records.contains(record)) {
-            throw new RuntimeException("Record not found");
+            throw new RuntimeException(I18n.tr("errors.record.not.found"));
         }
         if (record.isReturned()) {
-            System.out.println("Book already returned.");
+            System.out.println(I18n.tr("record.returned.already"));
             return;
         }
         record.markReturned();
         catalogue.returnBook(record.getBook());
-        System.out.println("Book returned: " + record.getBook());
+        System.out.println(I18n.tr("record.returned.ok", record.getBook()));
     }
 
     public void checkOverduesAndBlacklist(LocalDate onDate) {
@@ -89,7 +89,7 @@ public class LibraryHandler implements Serializable {
     }
 
     public void printRecords() {
-        System.out.println("Records:");
+        System.out.println(I18n.tr("records.title"));
         for (Record r : records) {
             System.out.println(r);
         }

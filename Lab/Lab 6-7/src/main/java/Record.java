@@ -1,6 +1,7 @@
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.UUID;
 
 public class Record implements Serializable {
@@ -14,6 +15,7 @@ public class Record implements Serializable {
     private LocalDate dueDate;
     private boolean returned;
     private final boolean readingRoom;
+    private final Date createdAt;
 
     public Record(Book book, Reader reader, LocalDate issueDate, LocalDate dueDate, boolean readingRoom) {
         this.id = UUID.randomUUID();
@@ -23,6 +25,7 @@ public class Record implements Serializable {
         this.dueDate = dueDate;
         this.readingRoom = readingRoom;
         this.returned = false;
+        this.createdAt = new Date();
     }
 
     public UUID getId() { return id; }
@@ -32,6 +35,7 @@ public class Record implements Serializable {
     public LocalDate getDueDate() { return dueDate; }
     public boolean isReturned() { return returned; }
     public boolean isReadingRoom() { return readingRoom; }
+    public Date getCreatedAt() { return new Date(createdAt.getTime()); }
 
     public void markReturned() {
         this.returned = true;
@@ -49,10 +53,11 @@ public class Record implements Serializable {
                 "id=" + id +
                 ", book=" + book +
                 ", reader=" + reader.getSurname() + " " + reader.getName() +
-                ", issueDate=" + issueDate +
-                ", dueDate=" + dueDate +
+                ", issueDate=" + I18n.fmt(issueDate) +
+                ", dueDate=" + I18n.fmt(dueDate) +
                 ", readingRoom=" + readingRoom +
                 ", returned=" + returned +
+                ", createdAt=" + I18n.fmt(createdAt) +
                 '}';
     }
 }

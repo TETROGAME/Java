@@ -1,5 +1,6 @@
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Date;
 
 public class Book implements Serializable {
     @Serial
@@ -7,14 +8,17 @@ public class Book implements Serializable {
 
     private final String title;
     private final String author;
+    private final Date createdAt;
 
     public Book(String title, String author) {
         this.title = title;
         this.author = author;
+        this.createdAt = new Date();
     }
 
     public String getTitle() { return title; }
     public String getAuthor() { return author; }
+    public Date getCreatedAt() { return new Date(createdAt.getTime()); }
 
     @Override
     public boolean equals(Object o) {
@@ -30,6 +34,6 @@ public class Book implements Serializable {
 
     @Override
     public String toString() {
-        return "Book \"" + title + "\" by " + author;
+        return "Book \"" + title + "\" by " + author + " (createdAt=" + I18n.fmt(createdAt) + ")";
     }
 }

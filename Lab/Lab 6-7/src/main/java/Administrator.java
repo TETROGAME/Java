@@ -1,5 +1,6 @@
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,14 +10,16 @@ public class Administrator implements Serializable {
 
     private final String name;
     private final Set<Reader> blacklist = new HashSet<>();
+    private final Date createdAt;
 
     public Administrator(String name) {
         this.name = name;
+        this.createdAt = new Date();
     }
 
     public void addToBlacklist(Reader reader) {
         blacklist.add(reader);
-        System.out.printf("Administrator %s added %s %s to blacklist%n", name, reader.getSurname(), reader.getName());
+        System.out.printf(I18n.tr("blacklist.add", name, reader.getSurname(), reader.getName()) + "%n");
     }
 
     public boolean isBlacklisted(Reader reader) {
@@ -24,9 +27,9 @@ public class Administrator implements Serializable {
     }
 
     public void printBlacklist() {
-        System.out.println("Blacklist:");
+        System.out.println(I18n.tr("blacklist.title"));
         if (blacklist.isEmpty()) {
-            System.out.println(" (none)");
+            System.out.println(" " + I18n.tr("blacklist.none"));
             return;
         }
         blacklist.forEach(r -> System.out.println("- " + r.getSurname() + " " + r.getName()));
@@ -34,5 +37,14 @@ public class Administrator implements Serializable {
 
     public Set<Reader> getBlacklist() {
         return blacklist;
+    }
+
+    public Date getCreatedAt() {
+        return new Date(createdAt.getTime());
+    }
+
+    @Override
+    public String toString() {
+        return "Administrator{name='" + name + "', createdAt=" + I18n.fmt(createdAt) + "}";
     }
 }

@@ -11,14 +11,14 @@ public class StateConnector {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f))) {
             Object obj = ois.readObject();
             if (obj instanceof LibraryHandler) {
-                System.out.println("Loaded saved library state from " + SAVEFILE);
+                System.out.println(I18n.tr("app.loaded", SAVEFILE));
                 return (LibraryHandler) obj;
             } else {
-                System.err.println("Error: Saved file is corrupt or of an incompatible type.");
+                System.err.println(I18n.tr("app.save.type.error"));
                 return null;
             }
         } catch (IOException | ClassNotFoundException e) {
-            System.err.println("Error: Failed to load state. " + e.getMessage());
+            System.err.println(I18n.tr("app.load.error", e.getMessage()));
             return null;
         }
     }
@@ -26,9 +26,9 @@ public class StateConnector {
     public void saveState(LibraryHandler handler) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(SAVEFILE))) {
             oos.writeObject(handler);
-            System.out.println("State successfully saved to " + SAVEFILE);
+            System.out.println(I18n.tr("app.save.ok", SAVEFILE));
         } catch (IOException e) {
-            System.err.println("Error: Failed to save state. " + e.getMessage());
+            System.err.println(I18n.tr("app.save.error", e.getMessage()));
         }
     }
 }

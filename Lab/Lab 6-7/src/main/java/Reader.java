@@ -1,5 +1,6 @@
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Date;
 
 public class Reader implements Serializable {
     @Serial
@@ -12,6 +13,7 @@ public class Reader implements Serializable {
     private final String email;
     private final String phone_number;
     private transient int sessionLoginCount = 0;
+    private final Date createdAt;
 
     public Reader(String name, String surname, String patronymic, String address, String email, String phone_number) {
         this.name = name;
@@ -20,6 +22,7 @@ public class Reader implements Serializable {
         this.address = address;
         this.email = email;
         this.phone_number = phone_number;
+        this.createdAt = new Date();
     }
 
     public String getName() { return name; }
@@ -37,6 +40,8 @@ public class Reader implements Serializable {
         return this.sessionLoginCount;
     }
 
+    public Date getCreatedAt() { return new Date(createdAt.getTime()); }
+
     @Override
     public String toString() {
         return "Name: " + name + "\n" +
@@ -44,7 +49,8 @@ public class Reader implements Serializable {
                 "Patronymic: " + patronymic + "\n" +
                 "Address: " + address + "\n" +
                 "Email: " + email + "\n" +
-                "Phone Number: " + phone_number + "\n";
+                "Phone Number: " + phone_number + "\n" +
+                "Created At: " + I18n.fmt(createdAt) + "\n";
     }
 
     @Override
