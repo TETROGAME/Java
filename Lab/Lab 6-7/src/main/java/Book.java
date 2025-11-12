@@ -34,6 +34,6 @@ public class Book implements Serializable {
 
     @Override
     public String toString() {
-        return "Book \"" + title + "\" by " + author + " (createdAt=" + I18n.fmt(createdAt) + ")";
+        return "Book \"" + title + "\" by " + author + " (createdAt=" + Localizator.fmt(createdAt) + ")";
     }
 }

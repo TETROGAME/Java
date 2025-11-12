@@ -11,14 +11,14 @@ public class StateConnector {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f))) {
             Object obj = ois.readObject();
             if (obj instanceof LibraryHandler) {
-                System.out.println(I18n.tr("app.loaded", SAVEFILE));
+                System.out.println(Localizator.tr("app.loaded", SAVEFILE));
                 return (LibraryHandler) obj;
             } else {
-                System.err.println(I18n.tr("app.save.type.error"));
+                System.err.println(Localizator.tr("app.save.type.error"));
                 return null;
             }
         } catch (IOException | ClassNotFoundException e) {
-            System.err.println(I18n.tr("app.load.error", e.getMessage()));
+            System.err.println(Localizator.tr("app.load.error", e.getMessage()));
             return null;
         }
     }
@@ -26,9 +26,9 @@ public class StateConnector {
     public void saveState(LibraryHandler handler) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(SAVEFILE))) {
             oos.writeObject(handler);
-            System.out.println(I18n.tr("app.save.ok", SAVEFILE));
+            System.out.println(Localizator.tr("app.save.ok", SAVEFILE));
         } catch (IOException e) {
-            System.err.println(I18n.tr("app.save.error", e.getMessage()));
+            System.err.println(Localizator.tr("app.save.error", e.getMessage()));
         }
     }
 }

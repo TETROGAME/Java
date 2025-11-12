@@ -23,8 +23,8 @@ public class Librarian implements Serializable {
 
         Record record = new Record(book, reader, issueDate, dueDate, readingRoom);
         System.out.printf(
-                I18n.tr("librarian.issued", name, book, reader.getSurname(), reader.getName(),
-                        readingRoom, I18n.fmt(dueDate)) + "%n");
+                Localizator.tr("librarian.issued", name, book, reader.getSurname(), reader.getName(),
+                        readingRoom, Localizator.fmt(dueDate)) + "%n");
         return record;
     }
 
@@ -32,6 +32,6 @@ public class Librarian implements Serializable {
 
     @Override
     public String toString() {
-        return "Librarian{name='" + name + "', createdAt=" + I18n.fmt(createdAt) + "}";
+        return "Librarian{name='" + name + "', createdAt=" + Localizator.fmt(createdAt) + "}";
     }
 }

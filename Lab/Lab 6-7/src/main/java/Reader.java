@@ -50,7 +50,7 @@ public class Reader implements Serializable {
                 "Address: " + address + "\n" +
                 "Email: " + email + "\n" +
                 "Phone Number: " + phone_number + "\n" +
-                "Created At: " + I18n.fmt(createdAt) + "\n";
+                "Created At: " + Localizator.fmt(createdAt) + "\n";
     }
 
     @Override

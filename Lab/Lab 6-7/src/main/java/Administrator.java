@@ -19,7 +19,7 @@ public class Administrator implements Serializable {
 
     public void addToBlacklist(Reader reader) {
         blacklist.add(reader);
-        System.out.printf(I18n.tr("blacklist.add", name, reader.getSurname(), reader.getName()) + "%n");
+        System.out.printf(Localizator.tr("blacklist.add", name, reader.getSurname(), reader.getName()) + "%n");
     }
 
     public boolean isBlacklisted(Reader reader) {
@@ -27,9 +27,9 @@ public class Administrator implements Serializable {
     }
 
     public void printBlacklist() {
-        System.out.println(I18n.tr("blacklist.title"));
+        System.out.println(Localizator.tr("blacklist.title"));
         if (blacklist.isEmpty()) {
-            System.out.println(" " + I18n.tr("blacklist.none"));
+            System.out.println(" " + Localizator.tr("blacklist.none"));
             return;
         }
         blacklist.forEach(r -> System.out.println("- " + r.getSurname() + " " + r.getName()));
@@ -45,6 +45,6 @@ public class Administrator implements Serializable {
 
     @Override
     public String toString() {
-        return "Administrator{name='" + name + "', createdAt=" + I18n.fmt(createdAt) + "}";
+        return "Administrator{name='" + name + "', createdAt=" + Localizator.fmt(createdAt) + "}";
     }
 }

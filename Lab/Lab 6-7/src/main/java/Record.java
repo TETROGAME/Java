@@ -53,11 +53,11 @@ public class Record implements Serializable {
                 "id=" + id +
                 ", book=" + book +
                 ", reader=" + reader.getSurname() + " " + reader.getName() +
-                ", issueDate=" + I18n.fmt(issueDate) +
-                ", dueDate=" + I18n.fmt(dueDate) +
+                ", issueDate=" + Localizator.fmt(issueDate) +
+                ", dueDate=" + Localizator.fmt(dueDate) +
                 ", readingRoom=" + readingRoom +
                 ", returned=" + returned +
-                ", createdAt=" + I18n.fmt(createdAt) +
+                ", createdAt=" + Localizator.fmt(createdAt) +
                 '}';
     }
 }

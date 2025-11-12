@@ -32,9 +32,9 @@ public class Catalogue implements Serializable {
         if (books.containsKey(book)) {
             if (books.get(book) > 0) {
                 books.replace(book, books.get(book) - 1);
-            } else throw new RuntimeException(I18n.tr("errors.out.of.stock"));
+            } else throw new RuntimeException(Localizator.tr("errors.out.of.stock"));
         } else {
-            throw new RuntimeException(I18n.tr("errors.book.not.found", book.getTitle()));
+            throw new RuntimeException(Localizator.tr("errors.book.not.found", book.getTitle()));
         }
     }
 
@@ -55,7 +55,7 @@ public class Catalogue implements Serializable {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(I18n.tr("catalogue.title")).append('\n');
+        sb.append(Localizator.tr("catalogue.title")).append('\n');
         int max_line_length = -1;
         for (Book book : books.keySet()) {
             if (max_line_length < book.toString().length()) {
@@ -66,11 +66,11 @@ public class Catalogue implements Serializable {
         for (var book : books.entrySet()) {
             sb.append(book.getKey().toString())
                     .append(", ")
-                    .append(I18n.tr("catalogue.available", book.getValue().toString()))
+                    .append(Localizator.tr("catalogue.available", book.getValue().toString()))
                     .append("\n");
         }
         sb.append("-".repeat(Math.max(0, max_line_length))).append('\n');
-        sb.append("Catalogue createdAt: ").append(I18n.fmt(createdAt)).append('\n');
+        sb.append("Catalogue createdAt: ").append(Localizator.fmt(createdAt)).append('\n');
         return sb.toString();
     }
 }
