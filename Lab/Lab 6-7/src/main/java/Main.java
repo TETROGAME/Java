@@ -70,17 +70,7 @@ public class Main {
         LibraryHandler handler = connector.loadState();
 
         if (handler == null) {
-            Book b1 = new Book("Dubel", "Igor Kolba");
-            Book b2 = new Book("Zubel", "Oleg Zubovich");
-            Book b3 = new Book("Profile", "Alexander Buslavskiy");
-            Book b4 = new Book("Ebel", "Stepikh Lachik");
-            Book b5 = new Book("Babel", "God Himself");
-            HashMap<Book, Integer> books = new HashMap<>();
-            books.put(b1, 0);
-            books.put(b2, 10);
-            books.put(b3, 3);
-            books.put(b4, 8);
-            books.put(b5, 19);
+            HashMap<Book, Integer> books = InventoryFileStorage.loadCatalogueFromFile();
             Catalogue catalogue = new Catalogue(books);
             Librarian librarian = new Librarian("Anna");
             Administrator admin = new Administrator("Ivan");
@@ -216,12 +206,12 @@ public class Main {
                                 current = createAndRegisterReader(handler, scanner);
                             } else if ("2".equals(sub)) {
                                 System.out.print(Localizator.tr("reader.prompt.email") + " ");
-                                String email = scanner.nextLine().trim();
-                                Reader found = handler.findReaderByEmail(email);
-                                if (found != null) {
-                                    current = found;
+                                String email2 = scanner.nextLine().trim();
+                                Reader found2 = handler.findReaderByEmail(email2);
+                                if (found2 != null) {
+                                    current = found2;
                                     current.incrementLoginCount();
-                                    handler.setLastLoggedInEmail(email);
+                                    handler.setLastLoggedInEmail(email2);
                                     System.out.println(Localizator.tr("switch.switched", current.getName(), current.getSurname()));
                                 } else {
                                     System.out.println(Localizator.tr("login.notfound"));
@@ -238,6 +228,8 @@ public class Main {
                 }
             }
         }
+
+        InventoryFileStorage.saveCatalogueToFile(handler.getCatalogue());
         connector.saveState(handler);
     }
 
