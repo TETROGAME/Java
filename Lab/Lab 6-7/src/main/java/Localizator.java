@@ -8,11 +8,11 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-public final class I18n {
+public final class Localizator {
     private static ResourceBundle bundle;
     private static Locale locale = Locale.UK;
 
-    private I18n() {}
+    private Localizator() {}
 
     public static void init(Locale l) {
         if (l != null) {
