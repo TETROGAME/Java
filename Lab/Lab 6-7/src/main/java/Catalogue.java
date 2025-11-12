@@ -2,6 +2,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 public class Catalogue implements Serializable {
@@ -52,6 +53,10 @@ public class Catalogue implements Serializable {
 
     public Date getCreatedAt() { return new Date(createdAt.getTime()); }
 
+    public HashMap<Book, Integer> getBooksSnapshot() {
+        return new HashMap<>(books);
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -63,7 +68,7 @@ public class Catalogue implements Serializable {
             }
         }
         sb.append("-".repeat(Math.max(0, max_line_length))).append('\n');
-        for (var book : books.entrySet()) {
+        for (Map.Entry<Book, Integer> book : books.entrySet()) {
             sb.append(book.getKey().toString())
                     .append(", ")
                     .append(Localizator.tr("catalogue.available", book.getValue().toString()))
